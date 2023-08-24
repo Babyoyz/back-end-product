@@ -31,22 +31,22 @@ func LoginHandler(c *fiber.Ctx) error {
 
 	st, err := token.SignedString([]byte(secret))
 	if err != nil {
-		modelResonseLogin := model.ResponseLogin{
+		modelResponseLogin := model.ResponseLogin{
 			Message: "error sign jwt",
 			Status:  500,
 			Token:   "",
 		}
 
-		return c.JSON(modelResonseLogin)
+		return c.JSON(modelResponseLogin)
 	}
 
-	modelResonseLogin := model.ResponseLogin{
+	modelResponseLogin := model.ResponseLogin{
 		Message: "login successful",
 		Status:  200,
 		Token:   st,
 	}
 
-	return c.JSON(modelResonseLogin)
+	return c.JSON(modelResponseLogin)
 }
 
 func AuthorizationMiddleware(c *fiber.Ctx) error {
@@ -57,12 +57,12 @@ func AuthorizationMiddleware(c *fiber.Ctx) error {
 
 	if err := validateToken(token); err != nil {
 
-		modelResonseLogin := model.ResponseLogin{
+		modelResponseLogin := model.ResponseLogin{
 			Message: "Authorization header extracted",
 			Status:  500,
 			Token:   "",
 		}
-		return c.JSON(modelResonseLogin)
+		return c.JSON(modelResponseLogin)
 	}
 
 	return c.Next()
