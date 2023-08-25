@@ -2,6 +2,7 @@ package main
 
 import (
 	"back_product/auth"
+	"back_product/db"
 	"back_product/product"
 	"back_product/user"
 
@@ -13,6 +14,12 @@ func status(c *fiber.Ctx) error {
 }
 
 func main() {
+
+	_, err := db.ConectionMysql()
+
+	if err != nil {
+		panic("failed to connect database")
+	}
 	app := fiber.New()
 	setupRoutes(app)
 	app.Listen(":3000")

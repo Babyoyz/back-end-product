@@ -21,3 +21,4 @@
 /src/go.work
 
 /src/.env
+/mysql/*

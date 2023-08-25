@@ -29,6 +29,7 @@ func ConectionMysql() (*gorm.DB, error) {
 		panic("failed to connect database")
 	}
 
+	fmt.Print("connect success")
 	return db, err
 
 }

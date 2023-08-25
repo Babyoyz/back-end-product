@@ -1,0 +1,37 @@
+version: '3'
+
+networks:
+  besite:
+    driver: bridge
+
+services:
+    mysql_db:
+      image: mariadb
+      container_name: mysql-project-product
+      restart: always
+      ports:
+      - 3306:3306
+      environment:
+        MYSQL_DATABASE: back_product
+        MYSQL_USER: username
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - ./mysql:/var/lib/mysql
+      networks:
+        - besite
+
+    be_app:
+      build:
+        context: .
+        dockerfile: ./src/Dockerfile
+      ports:
+        - "8080:8080"
+      volumes:
+        - ./src:/go/src/app:delegated
+      networks:
+      - besite
+      environment:
+        - PORT=8080
+      
+
